@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: AlphaTOken
+    network: mainnet
+    source:
+      address: "0xffc63b9146967a1ba33066fb057ee3722221acf0"
+      abi: AlphaTOken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+        - Approval
+      abis:
+        - name: AlphaTOken
+          file: AlphaTOken\abis\AlphaTOken.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+      file: AlphaTOken\AlphaTOken.wasm
